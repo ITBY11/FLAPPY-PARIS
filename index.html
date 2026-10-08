@@ -250,8 +250,8 @@
     const GRAVITY = 0.26;
     const JUMP_FORCE = -5.4;
     const PIPE_SPEED = 1.8;
-    const PIPE_SPAWN_INTERVAL = 110;
-    const PIPE_GAP = 130;
+    const PIPE_SPAWN_INTERVAL = 95;
+    const PIPE_GAP = 100;
     const GROUND_HEIGHT = 100;
 
     const bird = {
@@ -327,19 +327,21 @@
     let pipeTimer = 0;
 
     function spawnPipe() {
-      const minTopH = 50;
-      const maxTopH = V_HEIGHT - GROUND_HEIGHT - PIPE_GAP - 50;
-      const topHeight = minTopH + Math.floor(Math.random() * (maxTopH - minTopH));
+  // Écart vertical aléatoire entre 105 et 130 px
+  const currentGap = 105 + Math.floor(Math.random() * (130 - 105 + 1));
+  const minTopH = 40;
+  const maxTopH = V_HEIGHT - GROUND_HEIGHT - currentGap - 40;
+  const topHeight = minTopH + Math.floor(Math.random() * (maxTopH - minTopH));
 
-      pipes.push({
-        x: V_WIDTH + 10,
-        topH: topHeight,
-        bottomY: topHeight + PIPE_GAP,
-        bottomH: V_HEIGHT - GROUND_HEIGHT - (topHeight + PIPE_GAP),
-        w: 52,
-        passed: false
-      });
-    }
+  pipes.push({
+    x: V_WIDTH + 10,
+    topH: topHeight,
+    bottomY: topHeight + currentGap,
+    bottomH: V_HEIGHT - GROUND_HEIGHT - (topHeight + currentGap),
+    w: 52,
+    passed: false
+  });
+}
 
     function checkCollision(pipe) {
       const birdBox = {
